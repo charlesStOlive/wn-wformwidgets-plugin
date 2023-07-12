@@ -1,0 +1,21 @@
+{
+    "name": "waka/wn-wformwidgets-plugin",
+    "description": "Ajoute de nouveaux FormWidgets dans l'univers winter.cms",
+    "type": "winter-plugin",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/charlesStOlive/php-html-parser"
+        }
+    ],
+    "require": {
+         "ksubileau/color-thief-php": "^2.0.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Charles Saint Olive",
+            "email": "contact@notilac.fr"
+        }
+    ]
+}

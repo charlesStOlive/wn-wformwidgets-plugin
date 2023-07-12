@@ -1,1 +1,1 @@
-# wn-wformwidgets-plugin
+# wn-wformwidgets

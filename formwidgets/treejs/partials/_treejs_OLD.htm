@@ -1,0 +1,72 @@
+<?php if ($this->previewMode): ?>
+
+<div class="form-control">
+    <?= $value ?>
+</div>
+
+<?php else: ?>
+<div data-temp-tree>
+    <input id="<?= $this->getId('input') ?>" class="treeval" type="hidden" name="<?= $name ?>">
+    <input type="hidden" class="treeopt" data-treeopt="<?=e(json_encode($treeOptions))?>" data-inputid="<?= $this->getId('input') ?>" name="jstree">
+    <div class="treeDisplay"></div>
+</div>
+
+
+<?php endif ?>
+<script type="text/javascript">
+$(document).one('render', function() {
+    let tree = $(document).find('[data-temp-tree]').first()
+    console.log('tree')
+    console.log(tree)
+    let input1 = tree.find('.treeval').first()
+    console.log('input1')
+    console.log(input1)
+    let input2 = tree.find('.treeopt').first()
+    console.log('input2')
+    console.log(input2)
+    let treeDisplay = tree.find('.treeDisplay').first()
+    console.log('treeDisplay')
+    console.log(treeDisplay)
+    let mydata = input2.data('treeopt')
+
+    let startValue = mydata.map(item => {
+            return item.text
+        })
+    //console.log(mydata)
+    $(input2).attr('value', startValue.join(','));
+    treeDisplay.jstree({
+        'plugins': ['search', 'checkbox', 'wholerow'],
+        'core': {
+            'data': mydata,
+            'animation': false,
+            'expand_selected_onload': false,
+            'themes': {
+                'icons': false,
+            }
+        },
+        'search': {
+            'show_only_matches': true,
+            'show_only_matches_children': true
+        }
+    })
+
+    $('#search').on("keyup change", function() {
+        $('#jstree').jstree(true).search($(this).val())
+    })
+
+    $('#clear').click(function(e) {
+        $('#search').val('').change().focus()
+    })
+
+    treeDisplay.on('changed.jstree', function(e, data) {
+        var objects = data.instance.get_selected(true)
+        console.log(objects)
+        let onlyId = objects.map(item => {
+            //console.log()
+            return item.text
+        })
+        input1.attr('value', onlyId.join(','));
+    })
+})
+
+</script>
