@@ -146,7 +146,7 @@ class ColorPickerAnalyser extends FormWidgetBase
 
     private function checkImageFile($path) {
         if(\Str::startsWith($path,'http') || File::exists($path)) {
-            return ColorThief::getPalette($path);
+            return ColorThief::getPalette($path,10,10,null,'hex');
         } else {
             \Log::info('image existe pas');
             return null;
