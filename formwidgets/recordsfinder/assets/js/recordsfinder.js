@@ -90,7 +90,7 @@
 
     // Remplacez la méthode updateRecord par cette méthode
     RecordsFinder.prototype.handleSelection = function (e) {
-        console.log('handleSelection')
+         //console.log('handleSelection')
     };
 
 
@@ -128,7 +128,7 @@
         this.each(function () {
             var $this = $(this)
             var data = $this.data('oc.recordsfinder')
-            console.log(data)
+             //console.log(data)
             var options = $.extend({}, RecordsFinder.DEFAULTS, $this.data(), typeof option == 'object' && option)
             if (!data) $this.data('oc.recordsfinder', (data = new RecordsFinder(this, options)))
             if (typeof option == 'string') result = data[option].apply(data, args)

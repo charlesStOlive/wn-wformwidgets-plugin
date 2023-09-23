@@ -134,7 +134,7 @@ class ColorPickerAnalyser extends FormWidgetBase
             }
         }
         $newColors = $this->checkImageFile($path);
-        trace_log($newColors);
+        //trace_log($newColors);
         if($newColors) {
             return $newColors;
         } else {
@@ -146,7 +146,12 @@ class ColorPickerAnalyser extends FormWidgetBase
 
     private function checkImageFile($path) {
         if(\Str::startsWith($path,'http') || File::exists($path)) {
-            return ColorThief::getPalette($path,10,10,null,'hex');
+            try {
+                return ColorThief::getPalette($path,10,10,null,'hex');
+            }  catch(\Exception $ex) {
+                \Log::info('Problème image');
+            }
+            
         } else {
             \Log::info('image existe pas');
             return null;

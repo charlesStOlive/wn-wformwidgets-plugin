@@ -32,7 +32,7 @@
     Treejs.prototype.constructor = Treejs
 
     Treejs.prototype.init = function () {
-        console.log(this.$el)
+         //console.log(this.$el)
         let input1 = this.$el.find('.treeval').first()
         let treeDisplay = this.$el.find('.treeDisplay').first()
         let mydata = this.options.values

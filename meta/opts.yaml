@@ -1,0 +1,21 @@
+fields: 
+    padCss: 
+        label: Choisissez le padding
+        comment: Attention si vous ajoutez manuellement un css tailwind, assurez vous qu'il existe en dur dans le code
+        type: dropdown
+        placeholder: --Choissez ou pas--
+        span: storm
+        cssClass: col-xs-4 
+        options: \Wcli\Wcms\Classes\BlocFormHelper::getPaddingOptions
+    addCss: 
+        label: Ajoutez d'autres classses
+        comment: Attention si vous ajoutez manuellement un css tailwind, assurez vous qu'il existe en dur dans le code
+        type: taglist
+        mode: array
+        span: storm
+        cssClass: col-xs-4 
+        options: \Wcli\Wcms\Classes\BlocFormHelper::getAddCssOptions
+    styles: 
+        label: "Ajouter un style à l'enveloppe principal"
+        span: storm
+        cssClass: col-xs-4 

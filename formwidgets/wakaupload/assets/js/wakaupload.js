@@ -35,7 +35,7 @@
     WakaUpload.prototype.constructor = WakaUpload
 
     WakaUpload.prototype.init = function() {
-        console.log('inistialisation')
+         //console.log('inistialisation')
         if (this.options.isMulti === null) {
             this.options.isMulti = this.$el.hasClass('is-multi')
         }
@@ -106,7 +106,7 @@
             timeout: 0,
             headers: {}
         }
-        console.log(this.uploaderOptions)
+         //console.log(this.uploaderOptions)
 
         if (this.options.fileTypes) {
             this.uploaderOptions.acceptedFiles = this.options.fileTypes
@@ -190,7 +190,7 @@
     }
 
     WakaUpload.prototype.onUploadSending = function(file, xhr, formData) {
-        console.log(this.options.uploadHandler)
+         //console.log(this.options.uploadHandler)
         this.addExtraFormData(formData)
         xhr.setRequestHeader('X-WINTER-REQUEST-HANDLER', this.options.uploadHandler)
     }

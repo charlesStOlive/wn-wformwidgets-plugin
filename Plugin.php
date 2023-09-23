@@ -33,6 +33,8 @@ class Plugin extends PluginBase
     {
         CombineAssets::registerCallback(function ($combiner) {
             $combiner->registerBundle('~/plugins/waka/wformwidgets/formwidgets/wakaupload/assets/less/wakaupload.less');
+            $combiner->registerBundle('~/plugins/waka/wformwidgets/formwidgets/advancedmediafinder/assets/less/advancedmediafinder.less');
+            // $combiner->registerBundle('$/waka/wformwidgets/formwidgets/wakablocks/assets/less/repeaterblock.less');
         });
 
         \Event::listen('backend.page.beforeDisplay', function ($controller, $action, $params) {
@@ -61,6 +63,8 @@ class Plugin extends PluginBase
             'Waka\WformWidgets\FormWidgets\ColorPickerAnalyser' => 'colorpickeranalyser',
             'Waka\WformWidgets\FormWidgets\CommentField' => 'commentfield',
             'Waka\WformWidgets\FormWidgets\WakaRichEditor' => 'wakaeditor',
+            // 'Waka\WformWidgets\FormWidgets\AdvancedMediaFinder' => 'advancedmediafinder',
+            // \Waka\WformWidgets\FormWidgets\WakaBlocks::class => 'wakablocks'
         ];
     }
 

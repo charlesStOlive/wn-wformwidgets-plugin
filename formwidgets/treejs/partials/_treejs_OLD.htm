@@ -16,17 +16,17 @@
 <script type="text/javascript">
 $(document).one('render', function() {
     let tree = $(document).find('[data-temp-tree]').first()
-    console.log('tree')
-    console.log(tree)
+     //console.log('tree')
+     //console.log(tree)
     let input1 = tree.find('.treeval').first()
-    console.log('input1')
-    console.log(input1)
+     //console.log('input1')
+     //console.log(input1)
     let input2 = tree.find('.treeopt').first()
-    console.log('input2')
-    console.log(input2)
+     //console.log('input2')
+     //console.log(input2)
     let treeDisplay = tree.find('.treeDisplay').first()
-    console.log('treeDisplay')
-    console.log(treeDisplay)
+     //console.log('treeDisplay')
+     //console.log(treeDisplay)
     let mydata = input2.data('treeopt')
 
     let startValue = mydata.map(item => {
@@ -60,7 +60,7 @@ $(document).one('render', function() {
 
     treeDisplay.on('changed.jstree', function(e, data) {
         var objects = data.instance.get_selected(true)
-        console.log(objects)
+         //console.log(objects)
         let onlyId = objects.map(item => {
             //console.log()
             return item.text
