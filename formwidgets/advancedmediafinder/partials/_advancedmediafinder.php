@@ -1,4 +1,4 @@
-<?php if ($this->previewMode && !$value): ?>
+<?php if ($this->previewMode && !isset($value)): ?>
 
     <span class="form-control" disabled="disabled"><?= e(trans('backend::lang.form.preview_no_media_message')) ?></span>
 
