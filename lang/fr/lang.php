@@ -14,7 +14,7 @@ return [
     'recordsfinder' => [
         'cancel' => 'Annuler',
         'find_record' => 'Trouver un enregistrement',
-        'validate' => 'Ajouter sélection',
         'invalid_model_class' => 'Classe invalide',
+        'validate' => 'Ajouter sélection',
     ],
 ];
