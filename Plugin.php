@@ -44,15 +44,6 @@ class Plugin extends PluginBase
         });
     }
 
-    /**
-     * Boot method, called right before the request route.
-     *
-     * @return array
-     */
-    public function boot()
-    {
-    }
-
     public function registerFormWidgets(): array
     {
         return [
@@ -64,37 +55,6 @@ class Plugin extends PluginBase
             'Waka\WformWidgets\FormWidgets\CommentField' => 'commentfield',
             'Waka\WformWidgets\FormWidgets\WakaRichEditor' => 'wakaeditor',
             // 'Waka\WformWidgets\FormWidgets\AdvancedMediaFinder' => 'advancedmediafinder',
-            // \Waka\WformWidgets\FormWidgets\WakaBlocks::class => 'wakablocks'
         ];
-    }
-
-    /**
-     * Registers any front-end components implemented in this plugin.
-     *
-     * @return array
-     */
-    public function registerComponents()
-    {
-        return []; // Remove this line to activate
-    }
-
-    /**
-     * Registers any back-end permissions used by this plugin.
-     *
-     * @return array
-     */
-    public function registerPermissions()
-    {
-        return []; // Remove this line to activate
-    }
-
-    /**
-     * Registers back-end navigation items for this plugin.
-     *
-     * @return array
-     */
-    public function registerNavigation()
-    {
-        return []; // Remove this line to activate
     }
 }
