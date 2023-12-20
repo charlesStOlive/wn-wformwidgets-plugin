@@ -204,7 +204,7 @@ class WakaUpload extends FormWidgetBase
             return $this->configFormWidget;
         }
 
-        $config = $this->makeConfig($this->getConfig('config_yaml'));
+        $config = $this->makeConfig($this->getConfig('option_config_yaml'));
         $config->model = $this->getFileRecord() ?: $this->getRelationModel();
         $config->alias = $this->alias . $this->defaultAlias;
         $config->arrayName = $this->getFieldName();
