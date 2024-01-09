@@ -346,7 +346,7 @@ class WakaUpload extends FormWidgetBase
     {
         
         $fileModel = $this->getRelationModel();
-        trace_log('onRemoveAttachment--------',get_class($fileModel));
+        //trace_log('onRemoveAttachment--------',get_class($fileModel));
         if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
             $this->getRelationObject()->remove($file, $this->sessionKey);
         }
@@ -513,15 +513,15 @@ class WakaUpload extends FormWidgetBase
             // En cas d'erreur dans la requête, récupérez la réponse
             if (method_exists($ex, 'hasResponse')) {
                 if ($ex->hasResponse()) {
-                trace_log('hasResponse...');
+                //trace_log('hasResponse...');
                 $errorResponse = $ex->getResponse()->getBody()->getContents();
                 $response = Response::make($errorResponse, 400);
                 } else {
                     $response = Response::make($ex->getMessage(), 400);
                 }
             } else {
-                trace_log('pas de hasResponse...');
-                trace_log("Erreur lors de la requête : ", $ex->getMessage());
+                //trace_log('pas de hasResponse...');
+                //trace_log("Erreur lors de la requête : ", $ex->getMessage());
                 $response = Response::make($ex->getMessage(), 400);
             }
         } 
