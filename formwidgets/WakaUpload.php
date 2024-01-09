@@ -1,4 +1,6 @@
-<?php namespace Waka\Wformwidgets\FormWidgets;
+<?php
+
+namespace Waka\Wformwidgets\FormWidgets;
 
 use Db;
 use Input;
@@ -158,10 +160,6 @@ class WakaUpload extends FormWidgetBase
         }
 
         $this->vars['fileList'] = $fileList = $this->getFileList();
-        $file = $fileList->first();
-        if($file) {
-            $this->vars['ressourceReady'] = $fileList->first()->isApiRessourceReady();
-        }
         $this->vars['singleFile'] = $fileList->first();
         $this->vars['displayMode'] = $this->getDisplayMode();
 
@@ -203,7 +201,6 @@ class WakaUpload extends FormWidgetBase
         if ($this->configFormWidget) {
             return $this->configFormWidget;
         }
-
         $config = $this->makeConfig($this->getConfig('option_config_yaml'));
         $config->model = $this->getFileRecord() ?: $this->getRelationModel();
         $config->alias = $this->alias . $this->defaultAlias;
@@ -221,8 +218,7 @@ class WakaUpload extends FormWidgetBase
             ->getRelationObject()
             ->withDeferred($this->sessionKey)
             ->orderBy('sort_order')
-            ->get()
-        ;
+            ->get();
 
         /*
          * Decorate each file with thumb and custom download path
@@ -284,20 +280,19 @@ class WakaUpload extends FormWidgetBase
 
         if ($mode == 'block') {
             $cssDimensions .= $this->imageWidth
-                ? 'width: '.$this->imageWidth.'px;'
-                : 'width: '.$this->imageHeight.'px;';
+                ? 'width: ' . $this->imageWidth . 'px;'
+                : 'width: ' . $this->imageHeight . 'px;';
 
             $cssDimensions .= ($this->imageHeight)
-                ? 'max-height: '.$this->imageHeight.'px;'
+                ? 'max-height: ' . $this->imageHeight . 'px;'
                 : 'height: auto;';
-        }
-        else {
+        } else {
             $cssDimensions .= $this->imageWidth
-                ? 'width: '.$this->imageWidth.'px;'
+                ? 'width: ' . $this->imageWidth . 'px;'
                 : 'width: auto;';
 
             $cssDimensions .= ($this->imageHeight)
-                ? 'max-height: '.$this->imageHeight.'px;'
+                ? 'max-height: ' . $this->imageHeight . 'px;'
                 : 'height: auto;';
         }
 
@@ -335,7 +330,7 @@ class WakaUpload extends FormWidgetBase
             }
 
             if ($includeDot) {
-                $value = '.'.$value;
+                $value = '.' . $value;
             }
 
             return $value;
@@ -349,7 +344,9 @@ class WakaUpload extends FormWidgetBase
      */
     public function onRemoveAttachment()
     {
+        
         $fileModel = $this->getRelationModel();
+        trace_log('onRemoveAttachment--------',get_class($fileModel));
         if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
             $this->getRelationObject()->remove($file, $this->sessionKey);
         }
@@ -384,7 +381,7 @@ class WakaUpload extends FormWidgetBase
             $this->vars['parentElementId'] = $this->getId();
 
             $partialConfig = $this->getConfig('partial_config', null);
-            if($partialConfig) {
+            if ($partialConfig) {
                 return $this->makePartial($partialConfig);
             } else {
                 return $this->makePartial('config_form');
@@ -415,8 +412,7 @@ class WakaUpload extends FormWidgetBase
             }
 
             throw new ApplicationException('Unable to find file, it may no longer exist');
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             return json_encode(['error' => $ex->getMessage()]);
         }
     }
@@ -459,7 +455,7 @@ class WakaUpload extends FormWidgetBase
                     throw new ApplicationException('File missing from request');
                 }
 
-                $validationRules = ['max:'.$file::getMaxFilesize()];
+                $validationRules = ['max:' . $file::getMaxFilesize()];
                 $data = Input::file('file_data');
 
                 if (!$data->isValid()) {
@@ -467,11 +463,11 @@ class WakaUpload extends FormWidgetBase
                 }
 
                 if ($fileTypes = $this->getAcceptedFileTypes()) {
-                    $validationRules[] = 'extensions:'.$fileTypes;
+                    $validationRules[] = 'extensions:' . $fileTypes;
                 }
 
                 if ($this->mimeTypes) {
-                    $validationRules[] = 'mimes:'.$this->mimeTypes;
+                    $validationRules[] = 'mimes:' . $this->mimeTypes;
                 }
 
                 $validation = Validator::make(
@@ -486,11 +482,11 @@ class WakaUpload extends FormWidgetBase
 
             $file->data = $data;
             $file->save();
-            if($this->sendToApi) {
+            if ($this->sendToApi) {
                 $file->sendToApi();
                 $file->save();
             }
-            
+
 
 
             /**
@@ -500,8 +496,7 @@ class WakaUpload extends FormWidgetBase
             $parent = $fileRelation->getParent();
             if ($this->attachOnUpload && $parent && $parent->exists) {
                 $fileRelation->add($file);
-            }
-            else {
+            } else {
                 $fileRelation->add($file, $this->sessionKey);
             }
 
@@ -514,10 +509,22 @@ class WakaUpload extends FormWidgetBase
             ];
 
             $response = Response::make($result, 200);
-        }
-        catch (Exception $ex) {
-            $response = Response::make($ex->getMessage(), 400);
-        }
+        } catch (\Exception $ex) {
+            // En cas d'erreur dans la requête, récupérez la réponse
+            if (method_exists($ex, 'hasResponse')) {
+                if ($ex->hasResponse()) {
+                trace_log('hasResponse...');
+                $errorResponse = $ex->getResponse()->getBody()->getContents();
+                $response = Response::make($errorResponse, 400);
+                } else {
+                    $response = Response::make($ex->getMessage(), 400);
+                }
+            } else {
+                trace_log('pas de hasResponse...');
+                trace_log("Erreur lors de la requête : ", $ex->getMessage());
+                $response = Response::make($ex->getMessage(), 400);
+            }
+        } 
 
         return $response;
     }
@@ -533,7 +540,9 @@ class WakaUpload extends FormWidgetBase
         $path = $thumb = $file->getPath();
 
         if ($this->imageWidth || $this->imageHeight) {
-            $thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
+            $thumb = $file->getThumb($this->imageWidth, $this->imageHeight);
+        } else {
+            $thumb = $file->getThumb(300,300);
         }
 
         $file->pathUrl = $path;

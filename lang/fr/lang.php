@@ -17,4 +17,9 @@ return [
         'invalid_model_class' => 'Classe invalide',
         'validate' => 'Ajouter sélection',
     ],
+    'wakaupload' => [
+        'upload_error' => 'Erreur',
+        'remove_file' => 'Supprimer',
+        'remove_confirm' => 'Voulez vous supprimer cette vidéo',
+    ],
 ];
