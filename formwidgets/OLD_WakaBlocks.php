@@ -42,7 +42,7 @@ class WakaBlocks extends Repeater
     public function renderPreview($index = 0, $groupCode = null)
     {
         //trace_log($groupCode);
-        // trace_log($this->groupDefinitions);
+        //trace_log($this->groupDefinitions);
         $groupConfig = array_get($this->groupDefinitions, trim($groupCode));
         //trace_log($groupConfig);
         $values = array_get($this->getValueFromIndex($index), 'config', []);
@@ -224,8 +224,8 @@ class WakaBlocks extends Repeater
         $index = post('_repeaterblock_index');;
         $values = json_decode(post('values_copied'), true);
         $previousData = json_decode(post('_previous_data'), true);
-        // trace_log(post('_previous_data'));
-        // trace_log($previousData);
+        //trace_log(post('_previous_data'));
+        //trace_log($previousData);
         $previousData[$index] = $values;
         $targets = $this->parseFieldStringKeys($this->formField->getName());
         //TODO c'est crad mais je n'ai pas trouvé d autre moyen. Je n'arrive pas a refresh avec les bonnes valeurs. 
@@ -237,7 +237,7 @@ class WakaBlocks extends Repeater
             $model->{$field} = $previousData;
         } else {
             $actualData = $model->{$field};
-            // trace_log($actualData);
+            //trace_log($actualData);
             array_set($actualData,  $targets['keys'], $previousData);
             $model->{$field} = $actualData;
         }

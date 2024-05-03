@@ -117,8 +117,8 @@ class ColorPickerAnalyser extends FormWidgetBase
     protected function getAvailableColors()
     {
         $path = null;
-        // trace_log('fromMedia', $this->fromMedia);
-        // trace_log('pathMethod',$this->pathMethod);
+        //trace_log('fromMedia', $this->fromMedia);
+        //trace_log('pathMethod',$this->pathMethod);
         if($this->fromMedia) {
             //Si le fichier vient des médias on recupère simplement l'url et on complète avec pathMedia
             $mediaPath = $this->model[$this->colorsFrom];
@@ -149,11 +149,11 @@ class ColorPickerAnalyser extends FormWidgetBase
             try {
                 return ColorThief::getPalette($path,10,10,null,'hex');
             }  catch(\Exception $ex) {
-                \Log::info('Problème image');
+                \Log::error('Problème image');
             }
             
         } else {
-            \Log::info('image existe pas');
+            \Log::error('image existe pas');
             return null;
         }
 

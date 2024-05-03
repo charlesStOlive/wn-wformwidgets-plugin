@@ -2,6 +2,7 @@
     "use strict";
     $(document).render(function () {
         if ($.FroalaEditor) {
+            // Étendre les options par défaut
             $.FroalaEditor.DEFAULTS = $.extend($.FroalaEditor.DEFAULTS, {
                 htmlUntouched: true,
                 inlineStyles: {

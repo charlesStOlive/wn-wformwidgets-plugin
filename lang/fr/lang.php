@@ -18,8 +18,8 @@ return [
         'validate' => 'Ajouter sélection',
     ],
     'wakaupload' => [
-        'remove_confirm' => 'Voulez vous supprimer cette vidéo',
-        'remove_file' => 'Supprimer',
         'upload_error' => 'Erreur',
+        'remove_file' => 'Supprimer',
+        'remove_confirm' => 'Voulez vous supprimer cette vidéo',
     ],
 ];
