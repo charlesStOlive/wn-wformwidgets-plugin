@@ -1189,11 +1189,11 @@ class RelationInlineController extends ControllerBehavior
      */
     public function onRelationInlineManageUpdate()
     {
-        trace_log('onRelationInlineManageUpdate!!!',post());
+        //trace_log('onRelationInlineManageUpdate!!!',post());
         $this->forceManageMode = 'form';
         $this->beforeAjax();
         $saveData = $this->manageWidget->getSaveData();
-        trace_log($saveData);
+        //trace_log($saveData);
 
         if ($this->viewMode === 'multi') {
             $model = $this->manageWidget->model;
