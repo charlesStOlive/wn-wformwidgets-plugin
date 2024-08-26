@@ -126,6 +126,9 @@ class ColorPickerAnalyser extends FormWidgetBase
         } else {
             //Sion c'est un objet. 
             $file = $this->model->{$this->colorsFrom}()->withDeferred($this->sessionKey);
+            if(!$file->exists()) {
+                return $this->availableColors;
+            }
             if($this->pathMethod) {
                 //Il y a une methode specifique pour atteindre le media
                 $path = $file->first()->{$this->pathMethod}();
